@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Blue Dot Level 1 — Happy English</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#faeeda;min-height:100vh;padding:12px}
+.app{max-width:720px;margin:0 auto;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 8px 32px rgba(186,117,23,.15)}
+.header{background:#ba7517;padding:16px 20px 0;display:flex;align-items:center;gap:12px}
+.hlogo{width:50px;height:50px;background:#ffd700;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.hbrand{flex:1}
+.htitle{color:#fff;font-size:20px;font-weight:900;line-height:1.2}
+.hsub{color:#fac775;font-size:12px;margin-top:2px}
+.hstars{color:#ffd700;font-size:15px;font-weight:800;white-space:nowrap}
+.tabs{display:flex;padding:10px 10px 0;overflow-x:auto;background:#ba7517;scrollbar-width:none;gap:3px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:8px 12px;border-radius:10px 10px 0 0;cursor:pointer;font-size:11px;font-weight:800;color:#fac775;white-space:nowrap;background:rgba(255,255,255,.12);flex-shrink:0;border:none;font-family:inherit;transition:all .15s}
+.tab.act{background:#fff;color:#633806}
+.tab-rev{color:#ffd700;background:rgba(255,215,0,.2)}
+.tab-rev.act{background:#ffd700;color:#633806}
+.body{background:#fffbf2;padding:16px;min-height:520px}
+.uhead{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.unum{background:#ba7517;color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:99px}
+.utitle{font-size:16px;font-weight:800;color:#633806}
+.uconcept{font-size:11px;background:#faeeda;padding:3px 10px;border-radius:99px;color:#ba7517;font-weight:700;margin-left:auto}
+.modebar{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.mbtn{padding:8px 14px;border-radius:8px;border:2px solid #fac775;background:#fff;color:#ba7517;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:all .15s}
+.mbtn.act{background:#ba7517;color:#fff;border-color:#ba7517}
+.pbar-lbl{font-size:11px;color:#5f5e5a;margin-bottom:5px;display:flex;justify-content:space-between}
+.pbar{background:#fac775;border-radius:99px;height:9px;margin-bottom:14px;overflow:hidden}
+.pbar-fill{background:#ba7517;border-radius:99px;height:100%;transition:width .4s}
+.vgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:480px){.vgrid{grid-template-columns:repeat(2,1fr)}}
+.vcard{background:#fff;border-radius:14px;padding:12px 8px;text-align:center;cursor:pointer;border:2.5px solid transparent;transition:all .18s;position:relative}
+.vcard:hover{border-color:#ef9f27;transform:translateY(-2px)}
+.vcard.ok{border-color:#ba7517;background:#faeeda}
+.vemoji{font-size:34px;display:block;margin-bottom:5px}
+.vword{font-size:13px;font-weight:800;color:#633806}
+.vviet{font-size:10.5px;color:#888780;margin-top:2px}
+.vcheck{position:absolute;top:5px;right:7px;font-size:12px}
+.vsent{font-size:10px;color:#ba7517;margin-top:3px;font-style:italic;display:none}
+.vcard.ok .vsent{display:block}
+.btnrow{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.sbtn{flex:1;min-width:120px;padding:10px;border-radius:10px;border:none;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit}
+.sbtn:active{transform:scale(.97)}
+.bamber{background:#ba7517;color:#fff}.bamber:hover{background:#854f0b}
+.bteal{background:#0f6e56;color:#fff}.bteal:hover{background:#085041}
+.sbox{background:#fff;border-radius:14px;padding:16px;margin-bottom:10px}
+.stitle{font-size:14px;font-weight:800;color:#633806;margin-bottom:12px}
+.sline{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:.5px solid #faeeda}
+.sline:last-child{border:none;margin:0;padding:0}
+.swho{width:38px;height:38px;border-radius:50%;background:#faeeda;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.stxt{flex:1}
+.sname{font-size:10px;font-weight:800;color:#888780;margin-bottom:2px}
+.sen{font-size:13px;font-weight:800;color:#633806}
+.sviet{font-size:11px;color:#5f5e5a}
+.splbtn{display:inline-block;margin-top:4px;padding:3px 10px;background:#faeeda;border-radius:99px;font-size:10px;color:#ba7517;font-weight:800;cursor:pointer;border:none;font-family:inherit}
+.qcard{background:#fff;border-radius:14px;padding:16px;text-align:center}
+.qemoji{font-size:54px;margin:8px 0;display:block}
+.qq{font-size:15px;font-weight:800;color:#633806;margin-bottom:5px}
+.qhint{font-size:12px;color:#888780;margin-bottom:12px}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.qopt{background:#faeeda;border-radius:10px;padding:12px 8px;font-size:13px;font-weight:800;color:#ba7517;border:2px solid transparent;cursor:pointer;font-family:inherit;transition:all .15s}
+.qopt:hover{border-color:#ef9f27}
+.qopt.ok{background:#eaf3de;color:#3b6d11;border-color:#639922}
+.qopt.no{background:#fcebeb;color:#a32d2d;border-color:#e24b4a}
+.qres{font-size:14px;font-weight:800;padding:10px;border-radius:10px;margin-top:8px}
+.qres.ok{background:#eaf3de;color:#3b6d11}
+.qres.no{background:#fcebeb;color:#a32d2d}
+.nxtbtn{width:100%;padding:12px;border-radius:10px;border:none;background:#ba7517;color:#fff;font-size:14px;font-weight:800;cursor:pointer;margin-top:8px;font-family:inherit}
+.nxtbtn:hover{background:#854f0b}
+/* ── Review ── */
+.rsec{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px}
+.rsec-title{font-size:14px;font-weight:900;color:#633806;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.rbadge{background:#ba7517;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:99px}
+.urow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:.5px solid #faeeda}
+.urow:last-child{border:none}
+.urow-em{font-size:22px;width:32px;text-align:center}
+.urow-info{flex:1}
+.urow-name{font-size:13px;font-weight:800;color:#633806}
+.urow-words{font-size:11px;color:#5f5e5a}
+.urow-bar{width:60px;background:#fac775;border-radius:99px;height:6px;overflow:hidden}
+.urow-fill{background:#ba7517;height:100%;border-radius:99px}
+.urow-pct{font-size:10px;font-weight:800;color:#ba7517;min-width:28px;text-align:right}
+.fc{background:#faeeda;border-radius:18px;padding:28px 20px;text-align:center;cursor:pointer;border:3px solid transparent;transition:all .2s;margin-bottom:10px}
+.fc:hover{border-color:#ef9f27}
+.fc.flip{background:#633806}
+.fc-tag{font-size:10px;background:#fac775;color:#633806;padding:2px 8px;border-radius:99px;font-weight:800;margin-bottom:8px;display:inline-block}
+.fc.flip .fc-tag{background:#854f0b;color:#fac775}
+.fc-big{font-size:52px;display:block;margin-bottom:8px}
+.fc-word{font-size:22px;font-weight:900;color:#633806}
+.fc-hint{font-size:12px;color:#ba7517;margin-top:4px}
+.fc.flip .fc-word{color:#faeeda}
+.fc.flip .fc-hint{color:#fac775}
+.fcnav{display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:10px}
+.fcbtn{padding:8px 18px;border-radius:10px;border:none;background:#ba7517;color:#fff;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit}
+.fcbtn.gray{background:#d3d1c7;color:#444441}
+.fccount{font-size:12px;color:#5f5e5a;font-weight:700}
+.rfilt{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.rfbtn{padding:6px 12px;border-radius:8px;border:1.5px solid #fac775;background:#fff;color:#ba7517;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit}
+.rfbtn.act{background:#ba7517;color:#fff;border-color:#ba7517}
+.backbtn{padding:4px 12px;border-radius:8px;border:1.5px solid #fac775;background:#fff;color:#ba7517;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;margin-left:auto}
+.exinfo{background:#faeeda;border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:#633806;font-weight:700}
+.exinfo span{font-size:11px;color:#ba7517;font-weight:400;display:block;margin-top:2px}
+.exq{background:#fff;border-radius:14px;padding:16px;border:2px solid #faeeda;transition:border-color .2s}
+.exq.correct{border-color:#639922;background:#eaf3de}
+.exq.wrong{border-color:#e24b4a;background:#fcebeb}
+.exqnum{font-size:10px;font-weight:800;color:#888780;margin-bottom:4px}
+.extag{font-size:10px;background:#faeeda;color:#ba7517;padding:1px 7px;border-radius:99px;font-weight:800;margin-left:6px}
+.exqtxt{font-size:14px;font-weight:800;color:#633806;margin-bottom:10px}
+.exem{font-size:40px;display:block;text-align:center;margin-bottom:8px}
+.exopts{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.exopt{background:#faeeda;border-radius:10px;padding:10px 8px;font-size:12px;font-weight:800;color:#ba7517;border:2px solid transparent;cursor:pointer;font-family:inherit;text-align:center;transition:all .15s}
+.exopt:hover{border-color:#ef9f27}
+.exopt.ok{background:#eaf3de;color:#3b6d11;border-color:#639922}
+.exopt.no{background:#fcebeb;color:#a32d2d;border-color:#e24b4a}
+.resgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.rescell{background:#faeeda;border-radius:10px;padding:10px 6px;text-align:center}
+.rescell-n{font-size:20px;font-weight:900;color:#633806}
+.rescell-l{font-size:10px;color:#ba7517;font-weight:700}
+.brow{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:.5px solid #faeeda;font-size:12px}
+.brow:last-child{border:none}
+.brow-name{flex:1;font-weight:700;color:#633806}
+.sok{color:#3b6d11;font-weight:800}
+.spart{color:#ba7517;font-weight:800}
+.sno{color:#a32d2d;font-weight:800}
+.gbadge{display:inline-block;padding:6px 20px;border-radius:99px;font-size:18px;font-weight:900;margin-bottom:10px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="hlogo">🌍</div>
+    <div class="hbrand">
+      <div class="htitle">Little Blue Dot — Level 1</div>
+      <div class="hsub">Oxford English · Bé 3–4 tuổi · 9 Units</div>
+    </div>
+    <div class="hstars" id="sc">⭐ 0</div>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="body" id="body"></div>
+</div>
+
+<script>
+const U=[
+  {id:1,lb:"U1",ti:"Hello",co:"Greetings",em:"👋",
+   vocab:[
+    {e:"👋",w:"hello",v:"Xin chào",s:"Hello! My name is Spark."},
+    {e:"😊",w:"hi",v:"Chào",s:"Hi! How are you?"},
+    {e:"👏",w:"goodbye",v:"Tạm biệt",s:"Goodbye! See you tomorrow."},
+    {e:"🙏",w:"please",v:"Làm ơn",s:"Can I have some water, please?"},
+    {e:"😄",w:"thank you",v:"Cảm ơn",s:"Thank you very much!"},
+    {e:"😁",w:"yes",v:"Có / Vâng",s:"Yes, I can do it!"},
+    {e:"🙅",w:"no",v:"Không",s:"No, thank you."},
+    {e:"🙋",w:"my name is",v:"Tôi tên là",s:"My name is Spark."},
+   ],
+   story:[
+    {w:"🧒",n:"Spark",e:"Hello! My name is Spark.",v:"Xin chào! Tôi tên là Spark."},
+    {w:"👧",n:"Lily",e:"Hi, Spark! My name is Lily.",v:"Chào Spark! Tôi tên là Lily."},
+    {w:"🧒",n:"Spark",e:"Nice to meet you, Lily!",v:"Rất vui được gặp bạn, Lily!"},
+    {w:"👧",n:"Lily",e:"Nice to meet you too! Goodbye!",v:"Tôi cũng rất vui! Tạm biệt!"},
+   ],
+   qz:[
+    {e:"👋",q:"We say ___ when we meet someone",o:["goodbye","hello","please","no"],a:1},
+    {e:"👏",q:"We say ___ when we leave",o:["hi","yes","goodbye","thank you"],a:2},
+    {e:"🙏",q:"We say ___ when we want something",o:["no","goodbye","hello","please"],a:3},
+   ]},
+  {id:2,lb:"U2",ti:"My face",co:"Identity",em:"😊",
+   vocab:[
+    {e:"👁️",w:"eyes",v:"Đôi mắt",s:"I have two eyes."},
+    {e:"👃",w:"nose",v:"Cái mũi",s:"My nose is small."},
+    {e:"👄",w:"mouth",v:"Cái miệng",s:"Open your mouth."},
+    {e:"👂",w:"ears",v:"Đôi tai",s:"I have two ears."},
+    {e:"💇",w:"hair",v:"Mái tóc",s:"My hair is long."},
+    {e:"😁",w:"smile",v:"Nụ cười",s:"I have a big smile."},
+    {e:"🤔",w:"face",v:"Khuôn mặt",s:"Touch your face."},
+    {e:"🎭",w:"head",v:"Cái đầu",s:"Put the hat on your head."},
+   ],
+   story:[
+    {w:"🌍",n:"Blue Dot",e:"What can you see on your face?",v:"Bạn thấy gì trên khuôn mặt mình?"},
+    {w:"🧒",n:"Spark",e:"I can see my eyes and my nose!",v:"Tôi thấy mắt và mũi của mình!"},
+    {w:"🌍",n:"Blue Dot",e:"How many eyes do you have?",v:"Bạn có mấy cái mắt?"},
+    {w:"🧒",n:"Spark",e:"I have two eyes! And one nose!",v:"Tôi có hai mắt! Và một cái mũi!"},
+   ],
+   qz:[
+    {e:"👃",q:"We smell with our ___",o:["eyes","mouth","nose","ears"],a:2},
+    {e:"👄",q:"We eat with our ___",o:["nose","mouth","eyes","hair"],a:1},
+    {e:"👂",q:"We hear with our ___",o:["mouth","nose","face","ears"],a:3},
+   ]},
+  {id:3,lb:"U3",ti:"Words and pictures",co:"Language",em:"📖",
+   vocab:[
+    {e:"🔴",w:"red",v:"Màu đỏ",s:"The apple is red."},
+    {e:"🔵",w:"blue",v:"Màu xanh",s:"The sky is blue."},
+    {e:"🟡",w:"yellow",v:"Màu vàng",s:"The sun is yellow."},
+    {e:"🟢",w:"green",v:"Màu xanh lá",s:"The grass is green."},
+    {e:"🟠",w:"orange",v:"Màu cam",s:"The carrot is orange."},
+    {e:"⚫",w:"black",v:"Màu đen",s:"My shoes are black."},
+    {e:"⚪",w:"white",v:"Màu trắng",s:"The cloud is white."},
+    {e:"🩷",w:"pink",v:"Màu hồng",s:"The flower is pink."},
+   ],
+   story:[
+    {w:"🧒",n:"Spark",e:"Look at the rainbow!",v:"Nhìn cầu vồng kìa!"},
+    {w:"👧",n:"Lily",e:"I can see red, blue and yellow!",v:"Tôi thấy màu đỏ, xanh và vàng!"},
+    {w:"🧒",n:"Spark",e:"And green! Green is my favorite color.",v:"Và màu xanh lá! Xanh lá là màu tôi thích nhất."},
+    {w:"👧",n:"Lily",e:"My favorite color is pink!",v:"Màu tôi thích nhất là màu hồng!"},
+   ],
+   qz:[
+    {e:"🔴",q:"What color is an apple?",o:["blue","yellow","red","green"],a:2},
+    {e:"🟡",q:"What color is the sun?",o:["red","yellow","blue","pink"],a:1},
+    {e:"🟢",q:"What color is the grass?",o:["orange","white","black","green"],a:3},
+   ]},
+  {id:4,lb:"U4",ti:"My family",co:"Belonging",em:"👨‍👩‍👧",
+   vocab:[
+    {e:"👩",w:"mom",v:"Mẹ",s:"I love my mom."},
+    {e:"👨",w:"dad",v:"Bố",s:"My dad is tall."},
+    {e:"👵",w:"grandma",v:"Bà",s:"My grandma makes cookies."},
+    {e:"👴",w:"grandpa",v:"Ông",s:"My grandpa reads stories."},
+    {e:"👧",w:"sister",v:"Chị / Em gái",s:"My sister is funny."},
+    {e:"👦",w:"brother",v:"Anh / Em trai",s:"My brother likes cars."},
+    {e:"🐶",w:"pet",v:"Thú cưng",s:"My pet is a dog."},
+    {e:"🏠",w:"home",v:"Ngôi nhà",s:"My family is at home."},
+   ],
+   story:[
+    {w:"🧒",n:"Spark",e:"This is my family!",v:"Đây là gia đình tôi!"},
+    {w:"🌍",n:"Blue Dot",e:"Who is this?",v:"Đây là ai vậy?"},
+    {w:"🧒",n:"Spark",e:"This is my mom and my dad.",v:"Đây là mẹ và bố tôi."},
+    {w:"🌍",n:"Blue Dot",e:"Your family is wonderful!",v:"Gia đình bạn thật tuyệt vời!"},
+   ],
+   qz:[
+    {e:"👩",q:"She takes care of me. She is my ___",o:["grandpa","dad","sister","mom"],a:3},
+    {e:"👴",q:"He is my dad's father. He is my ___",o:["brother","grandpa","dad","uncle"],a:1},
+    {e:"👧",q:"She is a girl in my family. She is my ___",o:["mom","grandma","sister","pet"],a:2},
+   ]},
+  {id:5,lb:"U5",ti:"Me and my friends",co:"Friendship",em:"🤝",
+   vocab:[
+    {e:"🤝",w:"friend",v:"Bạn bè",s:"She is my best friend."},
+    {e:"🎮",w:"play",v:"Chơi",s:"Let's play together!"},
+    {e:"🤗",w:"share",v:"Chia sẻ",s:"Share your toys with friends."},
+    {e:"😍",w:"happy",v:"Vui / Hạnh phúc",s:"I am happy with my friends."},
+    {e:"😢",w:"sad",v:"Buồn",s:"Don't be sad. I am here."},
+    {e:"🤝",w:"kind",v:"Tốt bụng",s:"Be kind to your friends."},
+    {e:"🎁",w:"give",v:"Cho / Tặng",s:"I give my friend a gift."},
+    {e:"🏃",w:"run",v:"Chạy",s:"We run and play outside."},
+   ],
+   story:[
+    {w:"🧒",n:"Spark",e:"Can I play with you?",v:"Tôi có thể chơi cùng bạn không?"},
+    {w:"👧",n:"Lily",e:"Yes! Let's play together!",v:"Được! Mình chơi cùng nhau nhé!"},
+    {w:"🧒",n:"Spark",e:"I am so happy! You are my friend.",v:"Tôi vui lắm! Bạn là bạn của tôi."},
+    {w:"👧",n:"Lily",e:"You are my friend too, Spark!",v:"Bạn cũng là bạn của tôi, Spark!"},
+   ],
+   qz:[
+    {e:"😍",q:"I feel ___ when I play with friends",o:["sad","happy","tired","scared"],a:1},
+    {e:"🤗",q:"Good friends ___ their toys",o:["hide","break","share","lose"],a:2},
+    {e:"🏃",q:"We like to ___ and play outside",o:["sleep","eat","cry","run"],a:3},
+   ]},
+  {id:6,lb:"U6",ti:"We like food",co:"Nutrition",em:"🍎",
+   vocab:[
+    {e:"🍎",w:"apple",v:"Táo",s:"I like apples."},
+    {e:"🍌",w:"banana",v:"Chuối",s:"Bananas are yellow."},
+    {e:"🍊",w:"orange",v:"Cam",s:"Oranges are sweet."},
+    {e:"🍇",w:"grapes",v:"Nho",s:"I love grapes!"},
+    {e:"🥦",w:"broccoli",v:"Bông cải xanh",s:"Broccoli is green and healthy."},
+    {e:"🍰",w:"cake",v:"Bánh",s:"I love birthday cake!"},
+    {e:"🥤",w:"water",v:"Nước",s:"Drink water every day."},
+    {e:"🍳",w:"egg",v:"Trứng",s:"I eat an egg for breakfast."},
+   ],
+   story:[
+    {w:"👩",n:"Mom",e:"What do you want to eat?",v:"Con muốn ăn gì nào?"},
+    {w:"🧒",n:"Spark",e:"I want an apple, please!",v:"Con muốn ăn táo, xin mẹ!"},
+    {w:"👩",n:"Mom",e:"Good choice! Apples are healthy.",v:"Chọn hay lắm! Táo rất tốt cho sức khỏe."},
+    {w:"🧒",n:"Spark",e:"Thank you, Mom! I love apples!",v:"Cảm ơn mẹ! Con thích táo lắm!"},
+   ],
+   qz:[
+    {e:"🍌",q:"What color is a banana?",o:["red","green","yellow","orange"],a:2},
+    {e:"🥦",q:"This vegetable is green and healthy",o:["cake","apple","grapes","broccoli"],a:3},
+    {e:"🥤",q:"We drink ___ every day to stay healthy",o:["juice","milk","water","soda"],a:2},
+   ]},
+  {id:7,lb:"U7",ti:"What's this?",co:"Discovery",em:"🔍",
+   vocab:[
+    {e:"🪑",w:"chair",v:"Cái ghế",s:"Sit on the chair."},
+    {e:"🛏️",w:"bed",v:"Cái giường",s:"I sleep on my bed."},
+    {e:"📺",w:"TV",v:"Ti vi",s:"We watch TV together."},
+    {e:"📱",w:"phone",v:"Điện thoại",s:"Mom talks on the phone."},
+    {e:"💡",w:"lamp",v:"Đèn",s:"Turn on the lamp."},
+    {e:"🪞",w:"mirror",v:"Gương",s:"Look in the mirror."},
+    {e:"🧸",w:"toy",v:"Đồ chơi",s:"I play with my toy."},
+    {e:"🎒",w:"bag",v:"Túi / Ba lô",s:"My bag is blue."},
+   ],
+   story:[
+    {w:"🧒",n:"Spark",e:"What's this?",v:"Cái này là gì vậy?"},
+    {w:"👩‍🏫",n:"Teacher",e:"It's a chair! Can you sit on it?",v:"Đó là cái ghế! Con có thể ngồi lên không?"},
+    {w:"🧒",n:"Spark",e:"Yes! And what's that?",v:"Có ạ! Còn cái kia là gì?"},
+    {w:"👩‍🏫",n:"Teacher",e:"That's a lamp. It gives us light!",v:"Đó là cái đèn. Nó cho chúng ta ánh sáng!"},
+   ],
+   qz:[
+    {e:"🛏️",q:"We sleep on a ___",o:["chair","lamp","bed","toy"],a:2},
+    {e:"🧸",q:"Children like to play with ___",o:["lamps","mirrors","phones","toys"],a:3},
+    {e:"💡",q:"A ___ gives us light",o:["bed","lamp","bag","chair"],a:1},
+   ]},
+  {id:8,lb:"U8",ti:"What can we see?",co:"Observation",em:"🌿",
+   vocab:[
+    {e:"🌞",w:"sun",v:"Mặt trời",s:"The sun is bright."},
+    {e:"🌙",w:"moon",v:"Mặt trăng",s:"The moon shines at night."},
+    {e:"⭐",w:"star",v:"Ngôi sao",s:"I can see many stars."},
+    {e:"☁️",w:"cloud",v:"Đám mây",s:"The cloud is white and fluffy."},
+    {e:"🌳",w:"tree",v:"Cái cây",s:"The tree is tall and green."},
+    {e:"🌸",w:"flower",v:"Bông hoa",s:"The flower is beautiful."},
+    {e:"🦋",w:"butterfly",v:"Con bướm",s:"The butterfly is colorful."},
+    {e:"🐛",w:"bug",v:"Con sâu / Sâu bọ",s:"I see a little bug on the leaf."},
+   ],
+   story:[
+    {w:"🧒",n:"Spark",e:"Look! I can see a butterfly!",v:"Nhìn kìa! Tôi thấy một con bướm!"},
+    {w:"🌍",n:"Blue Dot",e:"Wow! It is so colorful!",v:"Ôi! Nó thật sặc sỡ!"},
+    {w:"🧒",n:"Spark",e:"And I can see flowers too!",v:"Và tôi cũng thấy hoa nữa!"},
+    {w:"🌍",n:"Blue Dot",e:"Nature is beautiful, Spark!",v:"Thiên nhiên thật đẹp, Spark!"},
+   ],
+   qz:[
+    {e:"🌞",q:"The ___ gives us light in the day",o:["moon","star","cloud","sun"],a:3},
+    {e:"🌸",q:"This is a beautiful ___",o:["bug","tree","flower","cloud"],a:2},
+    {e:"⭐",q:"We see ___ in the night sky",o:["flowers","butterflies","trees","stars"],a:3},
+   ]},
+  {id:9,lb:"U9",ti:"Amazing animals",co:"Nature",em:"🐘",
+   vocab:[
+    {e:"🐘",w:"elephant",v:"Con voi",s:"The elephant is very big."},
+    {e:"🦁",w:"lion",v:"Con sư tử",s:"The lion is brave."},
+    {e:"🐒",w:"monkey",v:"Con khỉ",s:"The monkey is funny."},
+    {e:"🐧",w:"penguin",v:"Chim cánh cụt",s:"The penguin cannot fly."},
+    {e:"🦒",w:"giraffe",v:"Hươu cao cổ",s:"The giraffe has a long neck."},
+    {e:"🐬",w:"dolphin",v:"Cá heo",s:"Dolphins can swim fast."},
+    {e:"🦜",w:"parrot",v:"Con vẹt",s:"The parrot can talk!"},
+    {e:"🐢",w:"turtle",v:"Con rùa",s:"The turtle moves slowly."},
+   ],
+   story:[
+    {w:"🧒",n:"Spark",e:"Wow! Look at the elephant!",v:"Ôi! Nhìn con voi kìa!"},
+    {w:"👧",n:"Lily",e:"It is so big! I love elephants.",v:"Nó to quá! Tôi yêu voi lắm."},
+    {w:"🧒",n:"Spark",e:"And the giraffe! Its neck is so long!",v:"Và con hươu cao cổ! Cổ nó dài quá!"},
+    {w:"👧",n:"Lily",e:"Amazing animals! I love the zoo!",v:"Những con vật thật tuyệt! Tôi thích sở thú!"},
+   ],
+   qz:[
+    {e:"🦒",q:"The giraffe has a very long ___",o:["tail","leg","neck","ear"],a:2},
+    {e:"🐬",q:"Dolphins can ___ very fast",o:["fly","run","jump","swim"],a:3},
+    {e:"🦜",q:"The parrot can ___",o:["swim","talk","run","roar"],a:1},
+   ]},
+];
+
+const EXAM=[
+  {ut:"U1 · Hello",       e:"👋",q:"We say ___ when we meet someone",      o:["goodbye","no","hello","please"],         a:2},
+  {ut:"U1 · Hello",       e:"🙏",q:"We say ___ when we want something",    o:["yes","please","goodbye","hi"],           a:1},
+  {ut:"U2 · My face",     e:"👃",q:"We smell with our ___",                o:["eyes","mouth","ears","nose"],            a:3},
+  {ut:"U2 · My face",     e:"👄",q:"We eat with our ___",                  o:["nose","ears","mouth","eyes"],            a:2},
+  {ut:"U3 · Colors",      e:"🔴",q:"What color is an apple?",              o:["blue","yellow","red","green"],           a:2},
+  {ut:"U3 · Colors",      e:"🟡",q:"What color is the sun?",               o:["red","yellow","blue","pink"],            a:1},
+  {ut:"U4 · My family",   e:"👩",q:"She takes care of me. She is my ___",  o:["grandpa","sister","dad","mom"],          a:3},
+  {ut:"U4 · My family",   e:"👴",q:"He is my dad's father. He is my ___",  o:["brother","grandpa","dad","uncle"],       a:1},
+  {ut:"U5 · Friends",     e:"😍",q:"I feel ___ when I play with friends",  o:["sad","tired","happy","scared"],          a:2},
+  {ut:"U5 · Friends",     e:"🤗",q:"Good friends ___ their toys",          o:["hide","break","share","lose"],           a:2},
+  {ut:"U6 · Food",        e:"🍌",q:"What color is a banana?",              o:["red","green","yellow","orange"],         a:2},
+  {ut:"U6 · Food",        e:"🥤",q:"We drink ___ every day to stay healthy",o:["juice","soda","milk","water"],          a:3},
+  {ut:"U7 · Things",      e:"🛏️",q:"We sleep on a ___",                   o:["chair","lamp","toy","bed"],              a:3},
+  {ut:"U7 · Things",      e:"💡",q:"A ___ gives us light",                 o:["bed","bag","lamp","chair"],              a:2},
+  {ut:"U8 · Nature",      e:"🌞",q:"The ___ gives us light in the day",    o:["moon","star","cloud","sun"],             a:3},
+  {ut:"U8 · Nature",      e:"⭐",q:"We see ___ in the night sky",          o:["flowers","butterflies","trees","stars"], a:3},
+  {ut:"U9 · Animals",     e:"🦒",q:"The giraffe has a very long ___",      o:["tail","leg","neck","ear"],               a:2},
+  {ut:"U9 · Animals",     e:"🐬",q:"Dolphins can ___ very fast",           o:["fly","run","jump","swim"],               a:3},
+];
+
+/* ── State ── */
+let au=0, mode='vocab', stars=0;
+let learned=U.map(()=>({}));
+let qi=U.map(()=>0), qa=U.map(()=>false), qc=U.map(()=>null), qok=U.map(()=>0);
+let rv='ov';
+let fDeck=[], fIdx=0, fFlip=false, fFilt='all';
+let ex={on:false,idx:0,ans:false,cho:null,sc:{}};
+
+/* ── Voice ── */
+let _v=null;
+function lv(){
+  const vs=window.speechSynthesis.getVoices();
+  const p=['Samantha','Karen','Moira','Google US English','Microsoft Zira','Microsoft David'];
+  _v=vs.find(v=>p.some(x=>v.name.includes(x))&&v.lang.startsWith('en'))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;
+}
+if('speechSynthesis' in window){window.speechSynthesis.onvoiceschanged=lv;lv();}
+function spk(t){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t);
+  u.lang='en-US';u.rate=0.75;u.pitch=1.1;u.volume=1;
+  if(_v)u.voice=_v;
+  setTimeout(()=>window.speechSynthesis.speak(u),80);
+}
+
+/* ── Deck ── */
+function mkDeck(f){
+  let d=[];
+  U.forEach((u,ui)=>u.vocab.forEach((v,vi)=>{
+    if(f==='learned'&&!learned[ui][vi])return;
+    if(f==='unseen'&&learned[ui][vi])return;
+    d.push({...v,ui,uTi:u.ti,uEm:u.em});
+  }));
+  for(let i=d.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]];}
+  return d;
+}
+
+/* ── Tabs ── */
+function bTabs(){
+  document.getElementById('tabs').innerHTML=
+    U.map((u,i)=>`<button class="tab${i===au&&au<99?' act':''}" onclick="su(${i})">${u.lb}</button>`).join('')+
+    `<button class="tab tab-rev${au===99?' act':''}" onclick="su(99)">🏆 Ôn thi</button>`;
+}
+function su(i){au=i;if(i===99){rv='ov';bTabs();render();}else{mode='vocab';bTabs();render();}}
+function sm(m){mode=m;render();}
+
+/* ── Main render ── */
+function render(){
+  if(au===99){rRev();return;}
+  const u=U[au];
+  const lc=Object.keys(learned[au]).length;
+  const pct=Math.round(lc/u.vocab.length*100);
+  let h=`<div class="uhead"><span class="unum">Unit ${u.id}</span><span class="utitle">${u.em} ${u.ti}</span><span class="uconcept">✨ ${u.co}</span></div>
+  <div class="modebar">
+    <button class="mbtn${mode==='vocab'?' act':''}" onclick="sm('vocab')">📝 Từ vựng</button>
+    <button class="mbtn${mode==='story'?' act':''}" onclick="sm('story')">📖 Câu chuyện</button>
+    <button class="mbtn${mode==='quiz'?' act':''}" onclick="sm('quiz')">🎮 Luyện tập</button>
+  </div>`;
+
+  if(mode==='vocab'){
+    h+=`<div class="pbar-lbl"><span>Đã học: ${lc}/${u.vocab.length} từ</span><span>${pct}%</span></div>
+    <div class="pbar"><div class="pbar-fill" style="width:${pct}%"></div></div>
+    <div class="vgrid">${u.vocab.map((v,i)=>`
+      <div class="vcard${learned[au][i]?' ok':''}" onclick="lw(${i})">
+        <span class="vcheck">${learned[au][i]?'✅':''}</span>
+        <span class="vemoji">${v.e}</span>
+        <div class="vword">${v.w}</div>
+        <div class="vviet">${v.v}</div>
+        <div class="vsent">"${v.s}"</div>
+      </div>`).join('')}</div>
+    <div class="btnrow">
+      <button class="sbtn bamber" onclick="saAll()">🔊 Nghe tất cả</button>
+      <button class="sbtn bteal" onclick="sm('quiz')">🎮 Luyện tập ngay</button>
+    </div>`;
+  } else if(mode==='story'){
+    h+=`<div class="sbox"><div class="stitle">📖 Mini story — ${u.ti}</div>
+      ${u.story.map(l=>`<div class="sline"><div class="swho">${l.w}</div><div class="stxt">
+        <div class="sname">${l.n}</div><div class="sen">${l.e}</div><div class="sviet">${l.v}</div>
+        <button class="splbtn" onclick="spk('${l.e.replace(/'/g,"\\'").replace(/"/g,"&quot;")}')">🔊 Nghe</button>
+      </div></div>`).join('')}</div>
+    <div class="btnrow">
+      <button class="sbtn bamber" onclick="saStory()">🔊 Đọc cả câu chuyện</button>
+      <button class="sbtn bteal" onclick="sm('quiz')">🎮 Làm bài tập</button>
+    </div>`;
+  } else {
+    const idx=qi[au];
+    if(idx>=u.qz.length){
+      const s=qok[au],t=u.qz.length;
+      h+=`<div style="background:#fff;border-radius:14px;padding:24px;text-align:center">
+        <span style="font-size:56px;display:block;margin-bottom:10px">${s===t?'🏆':s>=t/2?'😊':'💪'}</span>
+        <div style="font-size:18px;font-weight:900;color:#633806;margin-bottom:6px">${s}/${t} câu đúng!</div>
+        <div style="font-size:13px;color:#5f5e5a;margin-bottom:10px">${s===t?'Xuất sắc! Bé giỏi lắm!':s>=1?'Tốt lắm! Ôn lại nhé!':'Học lại từ vựng nhé!'}</div>
+        <div style="font-size:24px;margin:8px 0">${'⭐'.repeat(s)}</div>
+        <button class="nxtbtn" onclick="rqz()">🔄 Làm lại</button>
+        <button class="nxtbtn" style="background:#0f6e56;margin-top:6px" onclick="sm('vocab')">📝 Ôn từ vựng</button>
+      </div>`;
+    } else {
+      const q=u.qz[idx],ans=qa[au],cho=qc[au];
+      h+=`<div style="display:flex;justify-content:space-between;margin-bottom:8px">
+          <span style="font-size:13px;font-weight:800;color:#ba7517">Câu ${idx+1}/${u.qz.length}</span>
+          <span style="font-size:13px;font-weight:800;color:#ba7517">⭐ ${qok[au]} đúng</span>
+        </div>
+        <div class="pbar"><div class="pbar-fill" style="width:${Math.round(idx/u.qz.length*100)}%"></div></div>
+        <div class="qcard">
+          <span class="qemoji">${q.e}</span>
+          <div class="qq">${q.q}</div>
+          <div class="qhint">Chọn đáp án đúng!</div>
+          <div class="qopts">${q.o.map((o,i)=>{
+            let c='';if(ans)c=i===q.a?'ok':(i===cho?'no':'');
+            return `<button class="qopt${c?' '+c:''}" onclick="${ans?'':'aqz('+i+')'}">${o}</button>`;
+          }).join('')}</div>
+          ${ans?`<div class="qres${cho===q.a?' ok':' no'}">${cho===q.a?'🎉 Đúng rồi! Giỏi lắm!':'❌ Chưa đúng. Đáp án: '+q.o[q.a]}</div>
+          <button class="nxtbtn" onclick="nqz()">Câu tiếp theo ➡️</button>`:''}
+        </div>`;
+    }
+  }
+  document.getElementById('body').innerHTML=h;
+}
+
+/* ── Review ── */
+function rRev(){
+  const b=document.getElementById('body');
+  if(rv==='ov') b.innerHTML=rOv();
+  else if(rv==='fc') b.innerHTML=rFc();
+  else b.innerHTML=rEx();
+}
+
+function rOv(){
+  const tv=U.reduce((s,u)=>s+u.vocab.length,0);
+  const tl=learned.reduce((s,l)=>s+Object.keys(l).length,0);
+  const tp=Math.round(tl/tv*100);
+  return `<div class="uhead"><span class="unum" style="background:#854f0b">Ôn thi</span><span class="utitle">🏆 Tổng hợp Level 1</span></div>
+
+  <div class="rsec">
+    <div class="rsec-title">📊 Tiến độ tổng thể <span class="rbadge">${tl}/${tv} từ · ${tp}%</span></div>
+    <div class="pbar-lbl"><span>Đã học toàn bộ Level 1</span><span>${tp}%</span></div>
+    <div class="pbar"><div class="pbar-fill" style="width:${tp}%"></div></div>
+    ${U.map((u,ui)=>{
+      const lc=Object.keys(learned[ui]).length;
+      const p=Math.round(lc/u.vocab.length*100);
+      return `<div class="urow"><span class="urow-em">${u.em}</span>
+        <div class="urow-info"><div class="urow-name">Unit ${u.id}: ${u.ti}</div><div class="urow-words">${lc}/${u.vocab.length} từ đã học</div></div>
+        <div class="urow-bar"><div class="urow-fill" style="width:${p}%"></div></div>
+        <div class="urow-pct">${p}%</div></div>`;
+    }).join('')}
+  </div>
+
+  <div class="rsec">
+    <div class="rsec-title">🃏 Flashcard ôn tập nhanh</div>
+    <p style="font-size:12px;color:#5f5e5a;margin-bottom:10px">Lật thẻ để xem nghĩa tiếng Việt — luyện trí nhớ mỗi ngày!</p>
+    <div class="btnrow">
+      <button class="sbtn bamber" onclick="fFilt='all';fDeck=mkDeck('all');fIdx=0;fFlip=false;rv='fc';rRev()">🃏 Tất cả ${tv} thẻ</button>
+      <button class="sbtn bteal" onclick="fFilt='unseen';fDeck=mkDeck('unseen');fIdx=0;fFlip=false;rv='fc';rRev()">📖 Chưa học</button>
+    </div>
+  </div>
+
+  <div class="rsec">
+    <div class="rsec-title">📝 Bài kiểm tra tổng hợp <span class="rbadge">18 câu · 2 câu/unit</span></div>
+    <p style="font-size:12px;color:#5f5e5a;margin-bottom:10px">Kiểm tra toàn bộ kiến thức Level 1! Mỗi câu đúng được 3 ⭐</p>
+    <div style="background:#faeeda;border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:11px;color:#633806">
+      <b>Nội dung:</b> ${U.map(u=>`${u.em} ${u.ti}`).join(' · ')}
+    </div>
+    <button class="sbtn bamber" style="width:100%" onclick="sEx()">🎓 Bắt đầu kiểm tra</button>
+  </div>`;
+}
+
+function rFc(){
+  if(!fDeck||fDeck.length===0) return `<div class="rsec" style="text-align:center;padding:28px">
+    <div style="font-size:40px;margin-bottom:10px">📭</div>
+    <div style="font-size:14px;font-weight:800;color:#633806;margin-bottom:6px">Không có thẻ nào!</div>
+    <div style="font-size:12px;color:#5f5e5a;margin-bottom:14px">Hãy học ít nhất một từ vựng trước nhé.</div>
+    <button class="nxtbtn" style="width:auto;padding:10px 24px" onclick="rv='ov';rRev()">← Quay lại</button></div>`;
+
+  const c=fDeck[fIdx],f=fFlip;
+  const tv=U.reduce((s,u)=>s+u.vocab.length,0);
+  return `<div class="uhead"><span class="unum" style="background:#854f0b">Flashcard</span><span class="utitle">🃏 Ôn nhanh từ vựng</span>
+    <button class="backbtn" onclick="rv='ov';rRev()">← Tổng quan</button></div>
+  <div class="rsec">
+    <div class="rfilt">
+      <button class="rfbtn${fFilt==='all'?' act':''}" onclick="fFilt='all';fDeck=mkDeck('all');fIdx=0;fFlip=false;rRev()">Tất cả (${tv})</button>
+      <button class="rfbtn${fFilt==='learned'?' act':''}" onclick="fFilt='learned';fDeck=mkDeck('learned');fIdx=0;fFlip=false;rRev()">Đã học</button>
+      <button class="rfbtn${fFilt==='unseen'?' act':''}" onclick="fFilt='unseen';fDeck=mkDeck('unseen');fIdx=0;fFlip=false;rRev()">Chưa học</button>
+    </div>
+    <div class="fc${f?' flip':''}" onclick="fFlip=!fFlip;rRev()">
+      <span class="fc-tag">${c.uEm} ${c.uTi}</span>
+      <span class="fc-big">${c.e}</span>
+      <div class="fc-word">${f?c.v:c.w}</div>
+      <div class="fc-hint">${f?'('+c.w+')':'👆 Bấm để xem nghĩa tiếng Việt'}</div>
+    </div>
+    ${f?`<div style="font-size:11px;color:#ba7517;font-style:italic;text-align:center;margin-bottom:8px">"${c.s}"</div>`:''}
+    <div class="fcnav">
+      <button class="fcbtn${fIdx===0?' gray':''}" onclick="if(fIdx>0){fIdx--;fFlip=false;rRev()}">← Trước</button>
+      <button class="fcbtn" onclick="spk('${c.w.replace(/'/g,"\\'")}')">🔊</button>
+      <span class="fccount">${fIdx+1} / ${fDeck.length}</span>
+      <button class="fcbtn" onclick="fIdx=(fIdx+1)%fDeck.length;fFlip=false;rRev()">Tiếp →</button>
+    </div>
+    <div class="pbar-lbl"><span></span><span>${Math.round((fIdx+1)/fDeck.length*100)}%</span></div>
+    <div class="pbar"><div class="pbar-fill" style="width:${Math.round((fIdx+1)/fDeck.length*100)}%"></div></div>
+  </div>`;
+}
+
+function rEx(){
+  if(!ex.on) return `<div class="rsec" style="text-align:center;padding:28px">
+    <div style="font-size:52px;margin-bottom:12px">📝</div>
+    <div style="font-size:18px;font-weight:900;color:#633806;margin-bottom:6px">Bài kiểm tra tổng hợp</div>
+    <div style="font-size:13px;color:#5f5e5a;margin-bottom:4px">18 câu hỏi · 2 câu mỗi unit</div>
+    <div style="font-size:13px;color:#5f5e5a;margin-bottom:18px">Mỗi câu đúng được 3 ⭐</div>
+    <button class="nxtbtn" onclick="sEx()">🎓 Bắt đầu ngay!</button>
+    <button class="nxtbtn" style="background:#d3d1c7;color:#444441;margin-top:8px" onclick="rv='ov';rRev()">← Quay lại</button></div>`;
+
+  if(ex.idx>=EXAM.length){
+    const cor=Object.values(ex.sc).filter(v=>v===1).length;
+    const pct=Math.round(cor/EXAM.length*100);
+    const gr=pct>=90?'A+':pct>=80?'A':pct>=70?'B+':pct>=60?'B':'C';
+    const gc=pct>=80?'#3b6d11':pct>=60?'#ba7517':'#a32d2d';
+    const gm=pct>=80?'Bé học xuất sắc! Tuyệt vời lắm!':pct>=60?'Tốt lắm! Cố gắng thêm nhé!':'Cùng ôn lại và thử lại nhé!';
+    const bd=U.map((u,ui)=>{
+      const s1=ex.sc[ui*2]||0,s2=ex.sc[ui*2+1]||0,sc=s1+s2;
+      const cls=sc===2?'sok':sc===1?'spart':'sno';
+      return `<div class="brow"><span>${u.em}</span><span class="brow-name">Unit ${u.id}: ${u.ti}</span><span class="${cls}">${sc}/2 ${'⭐'.repeat(sc)}</span></div>`;
+    }).join('');
+    return `<div class="uhead"><span class="unum" style="background:#854f0b">Kết quả</span><span class="utitle">🏆 Kiểm tra hoàn thành!</span></div>
+    <div class="rsec" style="text-align:center">
+      <div style="font-size:56px;margin-bottom:10px">${pct>=80?'🏆':pct>=60?'😊':'💪'}</div>
+      <span class="gbadge" style="background:${gc}22;color:${gc}">${gr} — ${pct}%</span>
+      <div style="font-size:15px;font-weight:800;color:#633806;margin-bottom:4px">${cor}/${EXAM.length} câu đúng</div>
+      <div style="font-size:13px;color:#5f5e5a;margin-bottom:14px">${gm}</div>
+      <div class="resgrid">
+        <div class="rescell"><div class="rescell-n" style="color:#3b6d11">${cor}</div><div class="rescell-l">Câu đúng</div></div>
+        <div class="rescell"><div class="rescell-n" style="color:#a32d2d">${EXAM.length-cor}</div><div class="rescell-l">Câu sai</div></div>
+        <div class="rescell"><div class="rescell-n" style="color:#ba7517">${pct}%</div><div class="rescell-l">Điểm số</div></div>
+      </div>
+      <div style="text-align:left;background:#fffbf2;border-radius:10px;padding:12px;margin-bottom:14px">
+        <div style="font-size:12px;font-weight:900;color:#633806;margin-bottom:8px">Chi tiết theo từng unit:</div>
+        ${bd}
+      </div>
+      <button class="nxtbtn" onclick="sEx()">🔄 Làm lại bài kiểm tra</button>
+      <button class="nxtbtn" style="background:#0f6e56;margin-top:8px" onclick="fFilt='all';fDeck=mkDeck('all');fIdx=0;fFlip=false;rv='fc';rRev()">🃏 Ôn lại flashcard</button>
+      <button class="nxtbtn" style="background:#d3d1c7;color:#444441;margin-top:8px" onclick="rv='ov';rRev()">← Về tổng quan</button>
+    </div>`;
+  }
+
+  const q=EXAM[ex.idx],ans=ex.ans,cho=ex.cho;
+  const cor=Object.values(ex.sc).filter(v=>v===1).length;
+  return `<div class="uhead"><span class="unum" style="background:#854f0b">Kiểm tra</span>
+    <span class="utitle">📝 Câu ${ex.idx+1} / ${EXAM.length}</span>
+    <button class="backbtn" onclick="ex.on=false;rRev()">✕ Dừng</button></div>
+  <div class="exinfo">Tiến độ: ${ex.idx}/${EXAM.length} câu · Đúng: ${cor} câu<span>${q.ut}</span></div>
+  <div class="pbar"><div class="pbar-fill" style="width:${Math.round(ex.idx/EXAM.length*100)}%"></div></div>
+  <div class="exq${ans?(cho===q.a?' correct':' wrong'):''}">
+    <div class="exqnum">Câu ${ex.idx+1}<span class="extag">${q.ut}</span></div>
+    <span class="exem">${q.e}</span>
+    <div class="exqtxt">${q.q}</div>
+    <div class="exopts">${q.o.map((o,i)=>{
+      let c='';if(ans)c=i===q.a?' ok':(i===cho?' no':'');
+      return `<button class="exopt${c}" onclick="${ans?'':'aEx('+i+')'}">${o}</button>`;
+    }).join('')}</div>
+    ${ans?`<div class="qres${cho===q.a?' ok':' no'}" style="margin-top:10px">
+      ${cho===q.a?'🎉 Đúng rồi! Giỏi lắm!':'❌ Chưa đúng. Đáp án: <b>'+q.o[q.a]+'</b>'}
+    </div>
+    <button class="nxtbtn" onclick="nEx()">${ex.idx+1<EXAM.length?'Câu tiếp theo ➡️':'🏆 Xem kết quả'}</button>`:''}
+  </div>`;
+}
+
+/* ── Unit actions ── */
+function lw(i){
+  spk(U[au].vocab[i].w);
+  if(!learned[au][i]){learned[au][i]=true;stars++;document.getElementById('sc').textContent='⭐ '+stars;}
+  render();
+}
+function saAll(){const v=U[au].vocab;let i=0;function nx(){if(i>=v.length)return;spk(v[i].w);i++;setTimeout(nx,1400);}nx();}
+function saStory(){const s=U[au].story;let i=0;function nx(){if(i>=s.length)return;spk(s[i].e);i++;setTimeout(nx,2400);}nx();}
+function aqz(i){
+  if(qa[au])return;
+  const q=U[au].qz[qi[au]];
+  qa[au]=true;qc[au]=i;
+  if(i===q.a){qok[au]++;stars+=2;document.getElementById('sc').textContent='⭐ '+stars;spk('Correct! Well done!');}
+  else spk(q.o[q.a]);
+  render();
+}
+function nqz(){qi[au]++;qa[au]=false;qc[au]=null;render();}
+function rqz(){qi[au]=0;qa[au]=false;qc[au]=null;qok[au]=0;render();}
+
+/* ── Exam actions ── */
+function sEx(){ex={on:true,idx:0,ans:false,cho:null,sc:{}};rv='ex';rRev();}
+function aEx(i){
+  if(ex.ans)return;
+  const q=EXAM[ex.idx];
+  ex.ans=true;ex.cho=i;
+  if(i===q.a){ex.sc[ex.idx]=1;stars+=3;document.getElementById('sc').textContent='⭐ '+stars;spk('Correct! Well done!');}
+  else{ex.sc[ex.idx]=0;spk(q.o[q.a]);}
+  rRev();
+}
+function nEx(){ex.idx++;ex.ans=false;ex.cho=null;rRev();}
+
+bTabs();render();
+</script>
+</body>
+</html>
