@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Blue Dot Level 3 — Happy English</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#e8f4fd;min-height:100vh;padding:12px}
+.app{max-width:720px;margin:0 auto;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 8px 32px rgba(24,95,165,.13)}
+.header{background:#1a6fb5;padding:16px 20px 0;display:flex;align-items:center;gap:12px}
+.header-logo{width:50px;height:50px;background:#ffd700;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.header-brand{flex:1}
+.header-title{color:#fff;font-size:20px;font-weight:900;line-height:1.2}
+.header-sub{color:#b5d4f4;font-size:12px;margin-top:2px}
+.header-stars{color:#ffd700;font-size:15px;font-weight:800;white-space:nowrap}
+.unit-tabs{display:flex;gap:0;padding:10px 10px 0;overflow-x:auto;background:#1a6fb5;scrollbar-width:none}
+.unit-tabs::-webkit-scrollbar{display:none}
+.utab{padding:8px 12px;border-radius:10px 10px 0 0;cursor:pointer;font-size:11px;font-weight:800;color:#b5d4f4;white-space:nowrap;transition:all .18s;background:rgba(255,255,255,.1);margin-right:3px;flex-shrink:0;font-family:inherit}
+.utab.active{background:#fff;color:#0c447c}
+.body{background:#f0f7ff;padding:16px;min-height:520px}
+.unit-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.unum{background:#1a6fb5;color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:99px}
+.utitle{font-size:16px;font-weight:800;color:#0c447c}
+.uconcept{font-size:11px;background:#e6f1fb;padding:3px 10px;border-radius:99px;color:#185fa5;font-weight:700;margin-left:auto}
+.mode-bar{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.mbtn{padding:8px 14px;border-radius:8px;border:2px solid #b5d4f4;background:#fff;color:#185fa5;font-size:12px;font-weight:800;cursor:pointer;transition:all .15s;font-family:inherit}
+.mbtn.active{background:#185fa5;color:#fff;border-color:#185fa5}
+.prog-label{font-size:11px;color:#5f5e5a;margin-bottom:5px;display:flex;justify-content:space-between}
+.prog-wrap{background:#b5d4f4;border-radius:99px;height:9px;margin-bottom:14px;overflow:hidden}
+.prog-fill{background:#185fa5;border-radius:99px;height:100%;transition:width .4s}
+.vgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:480px){.vgrid{grid-template-columns:repeat(2,1fr)}}
+.vcard{background:#fff;border-radius:14px;padding:12px 8px;text-align:center;cursor:pointer;border:2.5px solid transparent;transition:all .18s;position:relative}
+.vcard:hover{border-color:#378add;transform:translateY(-2px)}
+.vcard.learned{border-color:#639922;background:#eaf3de}
+.vc-emoji{font-size:34px;display:block;margin-bottom:5px}
+.vc-word{font-size:13px;font-weight:800;color:#0c447c}
+.vc-viet{font-size:10.5px;color:#888780;margin-top:2px}
+.vc-check{position:absolute;top:5px;right:7px;font-size:12px}
+.vc-sent{font-size:10px;color:#639922;margin-top:3px;font-style:italic;display:none}
+.vcard.learned .vc-sent{display:block}
+.btn-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.sbtn{flex:1;min-width:120px;padding:10px;border-radius:10px;border:none;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;transition:all .15s}
+.sbtn:active{transform:scale(.97)}
+.sbtn-blue{background:#185fa5;color:#fff}
+.sbtn-blue:hover{background:#0c447c}
+.sbtn-green{background:#639922;color:#fff}
+.sbtn-green:hover{background:#3b6d11}
+.story-box{background:#fff;border-radius:14px;padding:16px;margin-bottom:10px}
+.story-title{font-size:14px;font-weight:800;color:#0c447c;margin-bottom:12px}
+.sline{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:.5px solid #e6f1fb}
+.sline:last-child{border:none;margin:0;padding:0}
+.swho{width:38px;height:38px;border-radius:50%;background:#e6f1fb;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.stext{flex:1}
+.sname{font-size:10px;font-weight:800;color:#888780;margin-bottom:2px}
+.sen{font-size:13px;font-weight:800;color:#0c447c}
+.sviet{font-size:11px;color:#5f5e5a}
+.splbtn{display:inline-block;margin-top:4px;padding:3px 10px;background:#e6f1fb;border-radius:99px;font-size:10px;color:#185fa5;font-weight:800;cursor:pointer;border:none;font-family:inherit}
+.qwrap{display:flex;flex-direction:column;gap:10px}
+.qprog{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.qscore{font-size:13px;font-weight:800;color:#185fa5}
+.qcard{background:#fff;border-radius:14px;padding:16px;text-align:center}
+.qemoji{font-size:54px;margin:8px 0;display:block}
+.qq{font-size:15px;font-weight:800;color:#0c447c;margin-bottom:5px}
+.qhint{font-size:12px;color:#888780;margin-bottom:12px}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.qopt{background:#e6f1fb;border-radius:10px;padding:12px 8px;font-size:13px;font-weight:800;color:#185fa5;border:2px solid transparent;cursor:pointer;transition:all .15s;font-family:inherit}
+.qopt:hover{border-color:#378add}
+.qopt.ok{background:#eaf3de;color:#3b6d11;border-color:#639922}
+.qopt.no{background:#fcebeb;color:#a32d2d;border-color:#e24b4a}
+.qresult{font-size:14px;font-weight:800;padding:10px;border-radius:10px;margin-top:8px}
+.qresult.ok{background:#eaf3de;color:#3b6d11}
+.qresult.no{background:#fcebeb;color:#a32d2d}
+.nextbtn{width:100%;padding:12px;border-radius:10px;border:none;background:#639922;color:#fff;font-size:14px;font-weight:800;cursor:pointer;margin-top:8px;font-family:inherit}
+.nextbtn:hover{background:#3b6d11}
+.result-card{background:#fff;border-radius:14px;padding:24px;text-align:center}
+.result-emoji{font-size:60px;display:block;margin-bottom:12px}
+.result-title{font-size:20px;font-weight:900;color:#0c447c;margin-bottom:6px}
+.result-sub{font-size:14px;color:#5f5e5a;margin-bottom:12px}
+.result-stars{font-size:28px;margin:10px 0}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="header">
+    <div class="header-logo">🌍</div>
+    <div class="header-brand">
+      <div class="header-title">Little Blue Dot — Level 3</div>
+      <div class="header-sub">Oxford English · Bé 4–6 tuổi · 9 Units</div>
+    </div>
+    <div class="header-stars" id="star-count">⭐ 0</div>
+  </div>
+  <div class="unit-tabs" id="unit-tabs"></div>
+  <div class="body" id="app-body"></div>
+</div>
+
+<script>
+const UNITS=[
+  {id:1,label:"U1",title:"People we know",concept:"Relationships",emoji:"👨‍👩‍👧",
+   vocab:[
+    {e:"👨‍👩‍👧",w:"family",v:"Gia đình",s:"This is my family."},
+    {e:"👵",w:"grandma",v:"Bà ngoại",s:"I love my grandma."},
+    {e:"👴",w:"grandpa",v:"Ông nội",s:"Grandpa is very tall."},
+    {e:"👦",w:"brother",v:"Anh/em trai",s:"My brother is funny."},
+    {e:"👧",w:"sister",v:"Chị/em gái",s:"My sister is kind."},
+    {e:"🤝",w:"friend",v:"Bạn bè",s:"He is my best friend."},
+    {e:"👩‍🏫",w:"teacher",v:"Giáo viên",s:"She is my teacher."},
+    {e:"🏠",w:"neighbor",v:"Hàng xóm",s:"They are our neighbors."},
+   ],
+   story:[
+    {who:"🧒",name:"Spark",en:"Hi! Who is she?",vn:"Chào! Cô ấy là ai?"},
+    {who:"👧",name:"Lily",en:"She is my sister!",vn:"Cô ấy là chị gái tôi!"},
+    {who:"🧒",name:"Spark",en:"What is her name?",vn:"Tên chị ấy là gì?"},
+    {who:"👧",name:"Lily",en:"Her name is Mia. She is very kind.",vn:"Chị ấy tên là Mia. Chị ấy rất tốt bụng."},
+   ],
+   quizzes:[
+    {e:"👵",q:"Who is she?",opts:["grandma","sister","teacher","friend"],a:0},
+    {e:"👨‍👩‍👧",q:"What is this?",opts:["school","family","party","story"],a:1},
+    {e:"👧",q:"This is my ___",opts:["brother","teacher","sister","friend"],a:2},
+   ]},
+  {id:2,label:"U2",title:"Places we go",concept:"Community",emoji:"🏫",
+   vocab:[
+    {e:"🏫",w:"school",v:"Trường học",s:"I go to school every day."},
+    {e:"🏪",w:"store",v:"Cửa hàng",s:"We go to the store."},
+    {e:"🏥",w:"hospital",v:"Bệnh viện",s:"The hospital is big."},
+    {e:"🌳",w:"park",v:"Công viên",s:"I play in the park."},
+    {e:"📚",w:"library",v:"Thư viện",s:"I read at the library."},
+    {e:"🏖️",w:"beach",v:"Bãi biển",s:"We swim at the beach."},
+    {e:"🚌",w:"bus stop",v:"Bến xe buýt",s:"Wait at the bus stop."},
+    {e:"🍽️",w:"restaurant",v:"Nhà hàng",s:"We eat at the restaurant."},
+   ],
+   story:[
+    {who:"🌍",name:"Blue Dot",en:"Where do you go today?",vn:"Hôm nay bạn đi đâu?"},
+    {who:"🧒",name:"Spark",en:"I go to the park!",vn:"Tôi đi công viên!"},
+    {who:"🌍",name:"Blue Dot",en:"What do you do there?",vn:"Bạn làm gì ở đó?"},
+    {who:"🧒",name:"Spark",en:"I run and play with my friends.",vn:"Tôi chạy và chơi cùng bạn bè."},
+   ],
+   quizzes:[
+    {e:"📚",q:"Where do you read books?",opts:["park","store","library","beach"],a:2},
+    {e:"🏖️",q:"Where do you swim?",opts:["school","beach","hospital","library"],a:1},
+    {e:"🏥",q:"Sick people go to the ___",opts:["park","library","store","hospital"],a:3},
+   ]},
+  {id:3,label:"U3",title:"Party time!",concept:"Celebration",emoji:"🎉",
+   vocab:[
+    {e:"🎂",w:"birthday cake",v:"Bánh sinh nhật",s:"Happy birthday! Here is your cake!"},
+    {e:"🎈",w:"balloon",v:"Bóng bay",s:"The balloon is red."},
+    {e:"🎁",w:"gift",v:"Món quà",s:"This gift is for you!"},
+    {e:"🎊",w:"party",v:"Bữa tiệc",s:"Let's have a party!"},
+    {e:"🎵",w:"song",v:"Bài hát",s:"Sing a song together!"},
+    {e:"💃",w:"dance",v:"Nhảy múa",s:"I love to dance!"},
+    {e:"🍭",w:"candy",v:"Kẹo",s:"Do you like candy?"},
+    {e:"🎀",w:"ribbon",v:"Dải ruy băng",s:"The ribbon is pink."},
+   ],
+   story:[
+    {who:"🧒",name:"Spark",en:"Today is my birthday!",vn:"Hôm nay là sinh nhật tôi!"},
+    {who:"👧",name:"Lily",en:"Happy birthday, Spark! Here is your gift!",vn:"Chúc mừng sinh nhật, Spark! Đây là quà của bạn!"},
+    {who:"🧒",name:"Spark",en:"Wow! Thank you! Can we dance?",vn:"Ôi! Cảm ơn bạn! Chúng ta có thể nhảy không?"},
+    {who:"👧",name:"Lily",en:"Yes! Let's dance and sing!",vn:"Được! Hãy nhảy và hát cùng nhau!"},
+   ],
+   quizzes:[
+    {e:"🎈",q:"What is this?",opts:["gift","ribbon","balloon","cake"],a:2},
+    {e:"🎁",q:"She gives me a ___",opts:["song","gift","party","candy"],a:1},
+    {e:"🎂",q:"We eat ___ on birthdays",opts:["balloon","ribbon","birthday cake","dance"],a:2},
+   ]},
+  {id:4,label:"U4",title:"Things we make",concept:"Creativity",emoji:"🎨",
+   vocab:[
+    {e:"🎨",w:"paint",v:"Sơn / vẽ màu",s:"I paint with red and blue."},
+    {e:"✂️",w:"cut",v:"Cắt",s:"Cut the paper carefully."},
+    {e:"📄",w:"paper",v:"Giấy",s:"Give me the paper."},
+    {e:"🖍️",w:"crayon",v:"Bút màu",s:"I use a crayon to draw."},
+    {e:"🖌️",w:"brush",v:"Cọ vẽ",s:"Use the brush to paint."},
+    {e:"🧱",w:"block",v:"Khối gỗ",s:"Build a tower with blocks."},
+    {e:"🏺",w:"clay",v:"Đất nặn",s:"Make a bowl with clay."},
+    {e:"📐",w:"ruler",v:"Thước kẻ",s:"Use the ruler to draw lines."},
+   ],
+   story:[
+    {who:"🧒",name:"Spark",en:"Look! I can make a paper boat!",vn:"Nhìn này! Tôi có thể làm thuyền giấy!"},
+    {who:"🌍",name:"Blue Dot",en:"Wow! How do you make it?",vn:"Ôi! Bạn làm nó như thế nào?"},
+    {who:"🧒",name:"Spark",en:"First, I fold the paper. Then I cut it.",vn:"Đầu tiên, tôi gấp giấy. Sau đó tôi cắt nó."},
+    {who:"🌍",name:"Blue Dot",en:"You are so creative!",vn:"Bạn thật sáng tạo!"},
+   ],
+   quizzes:[
+    {e:"🖍️",q:"I draw with a ___",opts:["ruler","brush","crayon","block"],a:2},
+    {e:"✂️",q:"What do we use to cut?",opts:["paint","scissors","brush","clay"],a:1},
+    {e:"🏺",q:"We make shapes with ___",opts:["paper","ruler","clay","crayon"],a:2},
+   ]},
+  {id:5,label:"U5",title:"Stories",concept:"Imagination",emoji:"📖",
+   vocab:[
+    {e:"📖",w:"story",v:"Câu chuyện",s:"Tell me a story!"},
+    {e:"👑",w:"king",v:"Nhà vua",s:"The king lives in a castle."},
+    {e:"🏰",w:"castle",v:"Lâu đài",s:"The castle is very big."},
+    {e:"🐉",w:"dragon",v:"Con rồng",s:"The dragon is friendly."},
+    {e:"🧚",w:"fairy",v:"Nàng tiên",s:"The fairy has wings."},
+    {e:"🌲",w:"forest",v:"Khu rừng",s:"They walk in the forest."},
+    {e:"🗺️",w:"map",v:"Bản đồ",s:"Use the map to find the way."},
+    {e:"⚔️",w:"sword",v:"Kiếm",s:"The knight has a sword."},
+   ],
+   story:[
+    {who:"🧒",name:"Spark",en:"Once upon a time, there was a dragon.",vn:"Ngày xửa ngày xưa, có một con rồng."},
+    {who:"🌍",name:"Blue Dot",en:"Was the dragon scary?",vn:"Con rồng có đáng sợ không?"},
+    {who:"🧒",name:"Spark",en:"No! The dragon was kind and funny!",vn:"Không! Con rồng tốt bụng và vui vẻ!"},
+    {who:"🌍",name:"Blue Dot",en:"I love this story! Tell me more!",vn:"Tôi thích câu chuyện này! Kể thêm đi!"},
+   ],
+   quizzes:[
+    {e:"🏰",q:"The king lives in a ___",opts:["forest","castle","park","library"],a:1},
+    {e:"🐉",q:"What is this creature?",opts:["fairy","knight","dragon","king"],a:2},
+    {e:"🧚",q:"Who has magic wings?",opts:["dragon","king","sword","fairy"],a:3},
+   ]},
+  {id:6,label:"U6",title:"Let's make music!",concept:"Expression",emoji:"🎵",
+   vocab:[
+    {e:"🎵",w:"music",v:"Âm nhạc",s:"I love music!"},
+    {e:"🥁",w:"drum",v:"Trống",s:"Bang the drum!"},
+    {e:"🎸",w:"guitar",v:"Đàn ghi-ta",s:"Play the guitar!"},
+    {e:"🎹",w:"piano",v:"Đàn piano",s:"The piano is beautiful."},
+    {e:"🎺",w:"trumpet",v:"Kèn trumpet",s:"Blow the trumpet!"},
+    {e:"🎻",w:"violin",v:"Đàn violin",s:"She plays the violin."},
+    {e:"🎤",w:"sing",v:"Hát",s:"I like to sing songs."},
+    {e:"👏",w:"clap",v:"Vỗ tay",s:"Clap your hands!"},
+   ],
+   story:[
+    {who:"👧",name:"Lily",en:"Let's make music together!",vn:"Hãy cùng nhau tạo âm nhạc!"},
+    {who:"🧒",name:"Spark",en:"I can play the drum!",vn:"Tôi có thể chơi trống!"},
+    {who:"👧",name:"Lily",en:"I can sing a song!",vn:"Tôi có thể hát một bài!"},
+    {who:"🧒",name:"Spark",en:"Let's play and sing together!",vn:"Hãy cùng chơi nhạc và hát nào!"},
+   ],
+   quizzes:[
+    {e:"🥁",q:"What instrument is this?",opts:["violin","piano","drum","guitar"],a:2},
+    {e:"🎹",q:"She plays the ___",opts:["trumpet","piano","guitar","drum"],a:1},
+    {e:"🎤",q:"She opens her mouth to ___",opts:["clap","play","sing","drum"],a:2},
+   ]},
+  {id:7,label:"U7",title:"Let's go!",concept:"Transport",emoji:"🚗",
+   vocab:[
+    {e:"🚗",w:"car",v:"Xe ô tô",s:"We go by car."},
+    {e:"🚌",w:"bus",v:"Xe buýt",s:"I ride the bus to school."},
+    {e:"✈️",w:"airplane",v:"Máy bay",s:"The airplane flies high."},
+    {e:"🚂",w:"train",v:"Tàu hỏa",s:"The train is very fast."},
+    {e:"🚲",w:"bicycle",v:"Xe đạp",s:"I ride my bicycle."},
+    {e:"⛵",w:"boat",v:"Thuyền",s:"We sail on a boat."},
+    {e:"🚀",w:"rocket",v:"Tên lửa",s:"The rocket goes to space!"},
+    {e:"🚁",w:"helicopter",v:"Trực thăng",s:"A helicopter flies above."},
+   ],
+   story:[
+    {who:"🌍",name:"Blue Dot",en:"How do you go to school?",vn:"Bạn đến trường bằng gì?"},
+    {who:"🧒",name:"Spark",en:"I go by bus!",vn:"Tôi đi xe buýt!"},
+    {who:"🌍",name:"Blue Dot",en:"Do you like the bus?",vn:"Bạn có thích xe buýt không?"},
+    {who:"🧒",name:"Spark",en:"Yes! I sit with my friends!",vn:"Có! Tôi ngồi cùng bạn bè!"},
+   ],
+   quizzes:[
+    {e:"✈️",q:"What flies in the sky?",opts:["car","boat","airplane","train"],a:2},
+    {e:"🚲",q:"I ride a ___",opts:["bicycle","bus","boat","rocket"],a:0},
+    {e:"🚂",q:"The ___ goes on tracks",opts:["airplane","bus","train","car"],a:2},
+   ]},
+  {id:8,label:"U8",title:"Animal action",concept:"Movement",emoji:"🦁",
+   vocab:[
+    {e:"🦁",w:"lion",v:"Sư tử",s:"The lion runs fast."},
+    {e:"🐘",w:"elephant",v:"Con voi",s:"The elephant is huge."},
+    {e:"🐒",w:"monkey",v:"Con khỉ",s:"The monkey can climb."},
+    {e:"🦅",w:"eagle",v:"Đại bàng",s:"The eagle can fly high."},
+    {e:"🐬",w:"dolphin",v:"Cá heo",s:"The dolphin can swim."},
+    {e:"🐸",w:"frog",v:"Con ếch",s:"The frog can jump."},
+    {e:"🐌",w:"snail",v:"Con ốc sên",s:"The snail moves slowly."},
+    {e:"🦘",w:"kangaroo",v:"Chuột túi",s:"The kangaroo can hop."},
+   ],
+   story:[
+    {who:"🧒",name:"Spark",en:"Look at the elephant! It is so big!",vn:"Nhìn con voi kìa! Nó to lắm!"},
+    {who:"🌍",name:"Blue Dot",en:"What can the elephant do?",vn:"Con voi có thể làm gì?"},
+    {who:"🧒",name:"Spark",en:"It can walk and swim!",vn:"Nó có thể đi bộ và bơi!"},
+    {who:"🌍",name:"Blue Dot",en:"Elephants are amazing animals!",vn:"Voi là những động vật tuyệt vời!"},
+   ],
+   quizzes:[
+    {e:"🐸",q:"The frog can ___",opts:["fly","swim","jump","climb"],a:2},
+    {e:"🦅",q:"The eagle can ___",opts:["hop","fly","swim","walk"],a:1},
+    {e:"🐌",q:"The snail moves ___",opts:["fast","high","slowly","loud"],a:2},
+   ]},
+  {id:9,label:"U9",title:"Adventures",concept:"Exploration",emoji:"🗺️",
+   vocab:[
+    {e:"🏔️",w:"mountain",v:"Ngọn núi",s:"The mountain is very tall."},
+    {e:"🌊",w:"ocean",v:"Đại dương",s:"The ocean is deep and blue."},
+    {e:"🌴",w:"jungle",v:"Rừng nhiệt đới",s:"Many animals live in the jungle."},
+    {e:"🏜️",w:"desert",v:"Sa mạc",s:"The desert is hot and dry."},
+    {e:"🧭",w:"compass",v:"La bàn",s:"Use a compass to find north."},
+    {e:"🎒",w:"backpack",v:"Ba lô",s:"Pack your backpack!"},
+    {e:"⛺",w:"tent",v:"Lều trại",s:"We sleep in a tent."},
+    {e:"🔦",w:"flashlight",v:"Đèn pin",s:"Use the flashlight at night."},
+   ],
+   story:[
+    {who:"🧒",name:"Spark",en:"Let's go on an adventure!",vn:"Hãy cùng đi phiêu lưu!"},
+    {who:"🌍",name:"Blue Dot",en:"Where do you want to go?",vn:"Bạn muốn đi đâu?"},
+    {who:"🧒",name:"Spark",en:"I want to climb a mountain!",vn:"Tôi muốn leo núi!"},
+    {who:"🌍",name:"Blue Dot",en:"Pack your backpack! Let's go!",vn:"Đóng gói ba lô! Xuất phát thôi!"},
+   ],
+   quizzes:[
+    {e:"🏔️",q:"This is a ___",opts:["ocean","desert","mountain","jungle"],a:2},
+    {e:"⛺",q:"We sleep in a ___",opts:["compass","tent","backpack","flashlight"],a:1},
+    {e:"🧭",q:"We use this to find direction",opts:["tent","flashlight","backpack","compass"],a:3},
+   ]},
+];
+
+let au=0,mode='vocab',totalStars=0;
+let learned=UNITS.map(()=>({}));
+let qi=UNITS.map(()=>0),qans=UNITS.map(()=>false),qcho=UNITS.map(()=>null),qcor=UNITS.map(()=>0);
+
+let _usVoice=null;
+function loadUSVoice(){
+  const voices=window.speechSynthesis.getVoices();
+  const priority=['Samantha','Karen','Moira','Daniel','Google US English','Microsoft Zira','Microsoft David'];
+  _usVoice=voices.find(v=>priority.some(p=>v.name.includes(p))&&v.lang.startsWith('en'))
+    ||voices.find(v=>v.lang==='en-US')
+    ||voices.find(v=>v.lang.startsWith('en-US'))
+    ||voices.find(v=>v.lang.startsWith('en'))
+    ||null;
+}
+if('speechSynthesis' in window){
+  window.speechSynthesis.onvoiceschanged=loadUSVoice;
+  loadUSVoice();
+}
+function speak(t){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t);
+  u.lang='en-US';
+  u.rate=0.78;
+  u.pitch=1.05;
+  u.volume=1;
+  if(_usVoice) u.voice=_usVoice;
+  setTimeout(()=>window.speechSynthesis.speak(u),80);
+}
+
+function buildTabs(){
+  document.getElementById('unit-tabs').innerHTML=UNITS.map((u,i)=>
+    `<button class="utab${i===au?' active':''}" onclick="setUnit(${i})">${u.label}</button>`
+  ).join('');
+}
+
+function setUnit(i){au=i;mode='vocab';buildTabs();render();}
+function setMode(m){mode=m;render();}
+
+function render(){
+  const u=UNITS[au];
+  const lc=Object.keys(learned[au]).length;
+  const pct=Math.round(lc/u.vocab.length*100);
+  let html=`
+    <div class="unit-head">
+      <span class="unum">Unit ${u.id}</span>
+      <span class="utitle">${u.emoji} ${u.title}</span>
+      <span class="uconcept">✨ ${u.concept}</span>
+    </div>
+    <div class="mode-bar">
+      <button class="mbtn${mode==='vocab'?' active':''}" onclick="setMode('vocab')">📝 Từ vựng</button>
+      <button class="mbtn${mode==='story'?' active':''}" onclick="setMode('story')">📖 Câu chuyện</button>
+      <button class="mbtn${mode==='quiz'?' active':''}" onclick="setMode('quiz')">🎮 Luyện tập</button>
+    </div>
+  `;
+  if(mode==='vocab'){
+    html+=`
+      <div class="prog-label"><span>Đã học: ${lc}/${u.vocab.length} từ</span><span>${pct}%</span></div>
+      <div class="prog-wrap"><div class="prog-fill" style="width:${pct}%"></div></div>
+      <div class="vgrid">
+        ${u.vocab.map((v,i)=>`
+          <div class="vcard${learned[au][i]?' learned':''}" onclick="learnWord(${i})">
+            <span class="vc-check">${learned[au][i]?'✅':''}</span>
+            <span class="vc-emoji">${v.e}</span>
+            <div class="vc-word">${v.w}</div>
+            <div class="vc-viet">${v.v}</div>
+            <div class="vc-sent">"${v.s}"</div>
+          </div>`).join('')}
+      </div>
+      <div class="btn-row">
+        <button class="sbtn sbtn-blue" onclick="speakAll()">🔊 Nghe tất cả</button>
+        <button class="sbtn sbtn-green" onclick="setMode('quiz')">🎮 Luyện tập ngay</button>
+      </div>`;
+  } else if(mode==='story'){
+    html+=`
+      <div class="story-box">
+        <div class="story-title">📖 Mini story — ${u.title}</div>
+        ${u.story.map((l,i)=>`
+          <div class="sline">
+            <div class="swho">${l.who}</div>
+            <div class="stext">
+              <div class="sname">${l.name}</div>
+              <div class="sen">${l.en}</div>
+              <div class="sviet">${l.vn}</div>
+              <button class="splbtn" onclick="speak('${l.en.replace(/'/g,"\\'").replace(/"/g,"&quot;")}')">🔊 Nghe</button>
+            </div>
+          </div>`).join('')}
+      </div>
+      <div class="btn-row">
+        <button class="sbtn sbtn-blue" onclick="readStory()">🔊 Đọc cả câu chuyện</button>
+        <button class="sbtn sbtn-green" onclick="setMode('quiz')">🎮 Làm bài tập</button>
+      </div>`;
+  } else {
+    const idx=qi[au];
+    if(idx>=u.quizzes.length){
+      const s=qcor[au],t=u.quizzes.length;
+      html+=`
+        <div class="result-card">
+          <span class="result-emoji">${s===t?'🏆':s>=t/2?'😊':'💪'}</span>
+          <div class="result-title">${s}/${t} câu đúng!</div>
+          <div class="result-sub">${s===t?'Xuất sắc! Bé học rất giỏi!':s>=1?'Tốt lắm! Hãy ôn lại nhé!':'Cùng học lại từ vựng nhé!'}</div>
+          <div class="result-stars">${'⭐'.repeat(s)}</div>
+          <button class="nextbtn" onclick="resetQuiz()">🔄 Làm lại</button>
+          <button class="nextbtn" style="background:#185fa5;margin-top:6px" onclick="setMode('vocab')">📝 Ôn từ vựng</button>
+        </div>`;
+    } else {
+      const q=u.quizzes[idx],ans=qans[au],cho=qcho[au];
+      html+=`
+        <div class="qwrap">
+          <div class="qprog">
+            <span class="qscore">Câu ${idx+1}/${u.quizzes.length}</span>
+            <span class="qscore">⭐ ${qcor[au]} đúng</span>
+          </div>
+          <div class="prog-wrap"><div class="prog-fill" style="width:${Math.round(idx/u.quizzes.length*100)}%"></div></div>
+          <div class="qcard">
+            <span class="qemoji">${q.e}</span>
+            <div class="qq">${q.q}</div>
+            <div class="qhint">Chọn đáp án đúng!</div>
+            <div class="qopts">
+              ${q.opts.map((o,i)=>{
+                let c='';
+                if(ans) c=i===q.a?'ok':(i===cho?'no':'');
+                return `<button class="qopt${c?' '+c:''}" onclick="${ans?'':'answerQuiz('+i+')'}">${o}</button>`;
+              }).join('')}
+            </div>
+            ${ans?`
+              <div class="qresult${cho===q.a?' ok':' no'}">
+                ${cho===q.a?'🎉 Đúng rồi! Giỏi lắm!':'❌ Chưa đúng. Đáp án: '+q.opts[q.a]}
+              </div>
+              <button class="nextbtn" onclick="nextQuiz()">Câu tiếp theo ➡️</button>`:''}
+          </div>
+        </div>`;
+    }
+  }
+  document.getElementById('app-body').innerHTML=html;
+}
+
+function learnWord(i){
+  speak(UNITS[au].vocab[i].w);
+  if(!learned[au][i]){learned[au][i]=true;totalStars++;document.getElementById('star-count').textContent='⭐ '+totalStars;}
+  render();
+}
+function speakAll(){
+  const v=UNITS[au].vocab;let idx=0;
+  function next(){if(idx>=v.length)return;speak(v[idx].w);idx++;setTimeout(next,1400);}
+  next();
+}
+function readStory(){
+  const s=UNITS[au].story;let idx=0;
+  function next(){if(idx>=s.length)return;speak(s[idx].en);idx++;setTimeout(next,2400);}
+  next();
+}
+function answerQuiz(i){
+  if(qans[au])return;
+  const q=UNITS[au].quizzes[qi[au]];
+  qans[au]=true;qcho[au]=i;
+  if(i===q.a){qcor[au]++;totalStars+=2;document.getElementById('star-count').textContent='⭐ '+totalStars;speak('Correct! Well done!');}
+  else speak(q.opts[q.a]);
+  render();
+}
+function nextQuiz(){qi[au]++;qans[au]=false;qcho[au]=null;render();}
+function resetQuiz(){qi[au]=0;qans[au]=false;qcho[au]=null;qcor[au]=0;render();}
+
+buildTabs();render();
+</script>
+</body>
+</html>
