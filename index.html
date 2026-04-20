@@ -9,34 +9,37 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Nunito',sans-serif;background:#e8f4fd;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
 .wrap{max-width:480px;width:100%;text-align:center}
-.logo{width:90px;height:90px;background:#ffd700;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:44px;margin:0 auto 18px;box-shadow:0 4px 18px rgba(15,110,86,.18)}
-h1{font-size:26px;font-weight:900;color:#085041;margin-bottom:6px}
-.sub{font-size:14px;color:#5f5e5a;margin-bottom:32px}
-.cards{display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
-.card{background:#fff;border-radius:18px;padding:20px 22px;display:flex;align-items:center;gap:16px;text-decoration:none;border:2.5px solid transparent;transition:all .18s;box-shadow:0 2px 12px rgba(15,110,86,.08)}
-.card:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(15,110,86,.15)}
-.card.lv2{border-color:#0f6e56}
-.card.lv2:hover{border-color:#085041}
-.card.lv3{border-color:#185fa5}
-.card.lv3:hover{border-color:#0c447c}
-.card-icon{width:58px;height:58px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.logo{width:90px;height:90px;background:#ffd700;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:44px;margin:0 auto 18px}
+h1{font-size:26px;font-weight:900;color:#1a1a1a;margin-bottom:6px}
+.sub{font-size:13px;color:#5f5e5a;margin-bottom:10px;line-height:1.6}
+.star-row{font-size:22px;margin-bottom:24px;letter-spacing:4px}
+.cards{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.card{background:#fff;border-radius:18px;padding:18px 20px;display:flex;align-items:center;gap:14px;text-decoration:none;border:2.5px solid transparent;transition:all .18s}
+.card:hover{transform:translateY(-3px)}
+.card.lv1{border-color:#ba7517}.card.lv1:hover{border-color:#854f0b}
+.card.lv2{border-color:#0f6e56}.card.lv2:hover{border-color:#085041}
+.card.lv3{border-color:#185fa5}.card.lv3:hover{border-color:#0c447c}
+.card-icon{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.lv1 .card-icon{background:#faeeda}
 .lv2 .card-icon{background:#e1f5ee}
 .lv3 .card-icon{background:#e6f1fb}
 .card-info{text-align:left;flex:1}
-.card-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.card-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.lv1 .card-label{color:#ba7517}
 .lv2 .card-label{color:#0f6e56}
 .lv3 .card-label{color:#185fa5}
-.card-title{font-size:17px;font-weight:900;color:#1a1a1a;margin-bottom:2px}
-.card-desc{font-size:12px;color:#888780}
-.card-arrow{font-size:20px;flex-shrink:0}
-.lv2 .card-arrow{color:#0f6e56}
-.lv3 .card-arrow{color:#185fa5}
-.units-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
-.unit-pill{font-size:10px;font-weight:800;padding:2px 8px;border-radius:99px}
-.lv2 .unit-pill{background:#e1f5ee;color:#0f6e56}
-.lv3 .unit-pill{background:#e6f1fb;color:#185fa5}
-.footer{font-size:11px;color:#b4b2a9;margin-top:8px}
-.star-row{font-size:20px;margin-bottom:14px;letter-spacing:4px}
+.card-title{font-size:16px;font-weight:900;color:#1a1a1a;margin-bottom:2px}
+.card-desc{font-size:11px;color:#888780;margin-bottom:6px}
+.pills{display:flex;gap:4px;flex-wrap:wrap}
+.pill{font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px}
+.lv1 .pill{background:#faeeda;color:#854f0b}
+.lv2 .pill{background:#e1f5ee;color:#085041}
+.lv3 .pill{background:#e6f1fb;color:#0c447c}
+.arrow{font-size:20px;flex-shrink:0}
+.lv1 .arrow{color:#ba7517}
+.lv2 .arrow{color:#0f6e56}
+.lv3 .arrow{color:#185fa5}
+.footer{font-size:11px;color:#b4b2a9}
 </style>
 </head>
 <body>
@@ -48,46 +51,67 @@ h1{font-size:26px;font-weight:900;color:#085041;margin-bottom:6px}
 
   <div class="cards">
 
+    <a class="card lv1" href="little-blue-dot-level1.html">
+      <div class="card-icon">📙</div>
+      <div class="card-info">
+        <div class="card-label">Level 1 · Bé 3–4 tuổi · Mới bắt đầu</div>
+        <div class="card-title">Little Blue Dot 1</div>
+        <div class="card-desc">9 units · 72 từ · Flashcard · Kiểm tra tổng hợp</div>
+        <div class="pills">
+          <span class="pill">👋 Hello</span>
+          <span class="pill">😊 My face</span>
+          <span class="pill">🎨 Colors</span>
+          <span class="pill">👨‍👩‍👧 My family</span>
+          <span class="pill">🤝 Friends</span>
+          <span class="pill">🍎 Food</span>
+          <span class="pill">🔍 Things</span>
+          <span class="pill">🌿 Nature</span>
+          <span class="pill">🐘 Animals</span>
+        </div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
     <a class="card lv2" href="little-blue-dot-level2.html">
       <div class="card-icon">📗</div>
       <div class="card-info">
-        <div class="card-label">Level 2 · Bé 3–5 tuổi</div>
+        <div class="card-label">Level 2 · Bé 4–5 tuổi · Trung cấp</div>
         <div class="card-title">Little Blue Dot 2</div>
-        <div class="card-desc">9 units · 72 từ vựng · Flashcard · Kiểm tra tổng hợp</div>
-        <div class="units-row">
-          <span class="unit-pill">👁️ Senses</span>
-          <span class="unit-pill">🍎 Food</span>
-          <span class="unit-pill">☀️ Weather</span>
-          <span class="unit-pill">🏠 My home</span>
-          <span class="unit-pill">🏫 My school</span>
-          <span class="unit-pill">🏙️ My town</span>
-          <span class="unit-pill">🦷 My body</span>
-          <span class="unit-pill">🌙 Day & night</span>
-          <span class="unit-pill">👕 Clothes</span>
+        <div class="card-desc">9 units · 72 từ · Flashcard · Kiểm tra tổng hợp</div>
+        <div class="pills">
+          <span class="pill">👁️ Senses</span>
+          <span class="pill">🍎 Food</span>
+          <span class="pill">☀️ Weather</span>
+          <span class="pill">🏠 My home</span>
+          <span class="pill">🏫 My school</span>
+          <span class="pill">🏙️ My town</span>
+          <span class="pill">🦷 My body</span>
+          <span class="pill">🌙 Day & night</span>
+          <span class="pill">👕 Clothes</span>
         </div>
       </div>
-      <div class="card-arrow">→</div>
+      <div class="arrow">→</div>
     </a>
 
     <a class="card lv3" href="little-blue-dot-level3.html">
       <div class="card-icon">📘</div>
       <div class="card-info">
-        <div class="card-label">Level 3 · Bé 4–6 tuổi</div>
+        <div class="card-label">Level 3 · Bé 5–6 tuổi · Nâng cao</div>
         <div class="card-title">Little Blue Dot 3</div>
-        <div class="card-desc">9 units · 72 từ vựng · Câu chuyện · Luyện tập</div>
-        <div class="units-row">
-          <span class="unit-pill">👨‍👩‍👧 People</span>
-          <span class="unit-pill">🏫 Places</span>
-          <span class="unit-pill">🎉 Party</span>
-          <span class="unit-pill">🎨 Make</span>
-          <span class="unit-pill">📖 Stories</span>
-          <span class="unit-pill">🎵 Music</span>
-          <span class="unit-pill">🚗 Go!</span>
-          <span class="unit-pill">🦁 Animals</span>
-          <span class="unit-pill">🗺️ Adventures</span>
+        <div class="card-desc">9 units · 72 từ · Câu chuyện · Luyện tập</div>
+        <div class="pills">
+          <span class="pill">👨‍👩‍👧 People</span>
+          <span class="pill">🏫 Places</span>
+          <span class="pill">🎉 Party</span>
+          <span class="pill">🎨 Make</span>
+          <span class="pill">📖 Stories</span>
+          <span class="pill">🎵 Music</span>
+          <span class="pill">🚗 Go!</span>
+          <span class="pill">🦁 Animals</span>
+          <span class="pill">🗺️ Adventures</span>
         </div>
       </div>
-      <div class="card-arrow">→</div>
+      <div class="arrow">→</div>
     </a>
 
   </div>
